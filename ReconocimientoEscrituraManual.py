@@ -30,7 +30,7 @@ with st.sidebar:
     stroke_color = st.color_picker("Selecciona el color del trazo ", "#000000")
     fill_color = st.color_picker("Selecciona el color de relleno (círculo/rectángulo)", "#FFFFFF")
 
-st.subheader("Dibuja el boceto en el panel y presiona el botón para analizarla")
+st.subheader("Dibuja en el lienzo y presiona el botón para analizarla")
 
 # Parámetros para el lienzo
 bg_color = '#FFFFFF'
