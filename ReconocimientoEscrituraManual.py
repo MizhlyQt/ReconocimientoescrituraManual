@@ -24,7 +24,9 @@ with st.sidebar:
     drawing_mode = st.selectbox(
         "Selecciona el modo de dibujo:",
         ("freedraw", "line", "circle", "rect")
-    )  # Selector para modo de dibujo
+    )
+    fill_color = st.sidebar.color_picker("Selecciona el color de relleno (círculo/rectángulo)", "#FFFFFF")
+
 st.subheader("Dibuja el boceto en el panel y presiona el botón para analizarla")
 
 # Parámetros para el lienzo
@@ -34,13 +36,13 @@ bg_color = '#FFFFFF'
 
 # Crear el lienzo
 canvas_result = st_canvas(
-    fill_color="rgba(255, 165, 0, 0.3)",  # Color de relleno con opacidad
+    fill_color=fill_color,  # Color de relleno personalizable
     stroke_width=stroke_width,
     stroke_color=stroke_color,
     background_color=bg_color,
     height=300,
     width=400,
-    drawing_mode=drawing_mode,  # El modo seleccionado por el usuario
+    drawing_mode=drawing_mode,
     key="canvas",
 )
 
