@@ -21,17 +21,19 @@ st.title('Tablero Inteligente')
 with st.sidebar:
     st.subheader("Acerca de:")
     st.subheader("En esta aplicación veremos la capacidad que ahora tiene una máquina de interpretar un boceto")
+    
+    # Orden cambiado según lo solicitado:
+    stroke_width = st.slider('Selecciona el ancho de línea', 1, 30, 5)
     drawing_mode = st.selectbox(
         "Selecciona el modo de dibujo:",
         ("freedraw", "line", "circle", "rect")
     )
-    fill_color = st.sidebar.color_picker("Selecciona el color de relleno (círculo/rectángulo)", "#FFFFFF")
+    fill_color = st.color_picker("Selecciona el color de relleno (círculo/rectángulo)", "#FFFFFF")
+    stroke_color = st.color_picker("Selecciona el color del trazo y hunde afuera para guardar los cambios", "#000000")
 
 st.subheader("Dibuja el boceto en el panel y presiona el botón para analizarla")
 
 # Parámetros para el lienzo
-stroke_width = st.sidebar.slider('Selecciona el ancho de línea', 1, 30, 5)
-stroke_color = st.sidebar.color_picker("Selecciona el color del trazo y hunde afuera para guardar los cambios", "#000000")
 bg_color = '#FFFFFF'
 
 # Crear el lienzo
@@ -42,7 +44,7 @@ canvas_result = st_canvas(
     background_color=bg_color,
     height=300,
     width=400,
-    drawing_mode=drawing_mode,
+    drawing_mode=drawing_mode,  # El modo seleccionado por el usuario
     key="canvas",
 )
 
