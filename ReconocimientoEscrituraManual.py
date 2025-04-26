@@ -26,7 +26,7 @@ st.subheader("Dibuja el boceto en el panel y presiona el botón para analizarla"
 # Parámetros para el lienzo
 drawing_mode = "freedraw"
 stroke_width = st.sidebar.slider('Selecciona el ancho de línea', 1, 30, 5)
-stroke_color = st.sidebar.color_picker("Selecciona el color del trazo", "#000000")
+stroke_color = st.sidebar.color_picker("Selecciona el color del trazo y hunde afuera para guardar los cambios", "#000000")
 bg_color = '#FFFFFF'
 
 # Crear el lienzo
@@ -35,8 +35,8 @@ canvas_result = st_canvas(
     stroke_width=stroke_width,
     stroke_color=stroke_color,
     background_color=bg_color,
-    height=300,
-    width=400,
+    height=700,
+    width=800,
     drawing_mode=drawing_mode,
     key="canvas",
 )
@@ -50,7 +50,7 @@ api_key = os.environ['OPENAI_API_KEY']
 # Inicializar el cliente OpenAI con la clave API
 client = OpenAI(api_key=api_key)
 
-analyze_button = st.button("Analiza la imagen", type="secondary")
+analyze_button = st.button("Analiza el dibujo", type="secondary")
 
 # Verificar si se dibujó algo y si la API Key es válida
 if canvas_result.image_data is not None and api_key and analyze_button:
