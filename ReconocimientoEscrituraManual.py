@@ -16,8 +16,8 @@ def encode_image_to_base64(image_path):
         return "Error: La imagen no se encontró en la ruta especificada."
 
 # Configuración de la página
-st.set_page_config(page_title='Tablero Inteligente', layout="wide")  # Establecemos el layout a 'wide' para alinear a la izquierda
-st.sidebar.title("Configuraciones")  # La barra lateral sigue separada, pero puedes incluir ajustes aquí.
+st.set_page_config(page_title='Tablero Inteligente', layout="wide")  # Alineación izquierda
+st.sidebar.title("Configuraciones")  # Configuraciones en barra lateral
 
 # Título
 st.title('Tablero Inteligente')
@@ -27,7 +27,7 @@ st.write("Dibuja el boceto en el panel y presiona el botón para analizarlo")
 drawing_mode = "freedraw"
 stroke_width = st.sidebar.slider('Selecciona el ancho de línea', 1, 30, 5)
 stroke_color = st.sidebar.color_picker("Selecciona el color del trazo", "#000000")
-bg_color = '#FFFFFF'  # Color del fondo del lienzo (puedes cambiarlo directamente aquí)
+bg_color = '#FFFFFF'  # Cambiar este color para ajustar el fondo del lienzo
 
 # Tamaño del lienzo aumentado
 canvas_result = st_canvas(
@@ -35,8 +35,8 @@ canvas_result = st_canvas(
     stroke_width=stroke_width,
     stroke_color=stroke_color,
     background_color=bg_color,
-    height=600,  # Altura aumentada
-    width=800,   # Ancho aumentado
+    height=800,  # Altura aumentada
+    width=1200,   # Ancho aumentado
     drawing_mode=drawing_mode,
     key="canvas",
 )
