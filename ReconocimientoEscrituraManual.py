@@ -21,15 +21,14 @@ st.title('Tablero Inteligente')
 with st.sidebar:
     st.subheader("Acerca de:")
     st.subheader("En esta aplicación veremos la capacidad que ahora tiene una máquina de interpretar un boceto")
-    
-    # Orden cambiado según lo solicitado:
+   
     stroke_width = st.slider('Selecciona el ancho de línea', 1, 30, 5)
     drawing_mode = st.selectbox(
         "Selecciona el modo de dibujo:",
         ("freedraw", "line", "circle", "rect")
     )
+    stroke_color = st.color_picker("Selecciona el color del trazo ", "#000000")
     fill_color = st.color_picker("Selecciona el color de relleno (círculo/rectángulo)", "#FFFFFF")
-    stroke_color = st.color_picker("Selecciona el color del trazo y hunde afuera para guardar los cambios", "#000000")
 
 st.subheader("Dibuja el boceto en el panel y presiona el botón para analizarla")
 
