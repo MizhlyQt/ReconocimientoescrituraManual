@@ -40,7 +40,7 @@ stroke_width = st.sidebar.slider('Selecciona el ancho de línea', 1, 30, 5)
 #stroke_color = '#FFFFFF' # Set background color to white
 #bg_color = '#000000'
 stroke_color = "#000000" 
-bg_color = '#FFFFFF'
+bg_color = '#00FF00'
 #realtime_update = st.sidebar.checkbox("Update in realtime", True)
 
 
