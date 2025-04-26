@@ -15,32 +15,33 @@ def encode_image_to_base64(image_path):
     except FileNotFoundError:
         return "Error: La imagen no se encontró en la ruta especificada."
 
-# Streamlit 
-st.set_page_config(page_title='Tablero Inteligente')
+# Configuración de la página
+st.set_page_config(page_title='Tablero Inteligente', layout="wide")  # Establecemos el layout a 'wide' para alinear a la izquierda
+st.sidebar.title("Configuraciones")  # La barra lateral sigue separada, pero puedes incluir ajustes aquí.
+
+# Título
 st.title('Tablero Inteligente')
-with st.sidebar:
-    st.subheader("Acerca de:")
-    st.subheader("En esta aplicación veremos la capacidad que ahora tiene una máquina de interpretar un boceto")
-st.subheader("Dibuja el boceto en el panel y presiona el botón para analizarla")
+st.write("Dibuja el boceto en el panel y presiona el botón para analizarlo")
 
 # Parámetros para el lienzo
 drawing_mode = "freedraw"
 stroke_width = st.sidebar.slider('Selecciona el ancho de línea', 1, 30, 5)
-stroke_color = st.sidebar.color_picker("Selecciona el color del trazo y hunde afuera para guardar los cambios", "#000000")
-bg_color = '#FFFFFF'
+stroke_color = st.sidebar.color_picker("Selecciona el color del trazo", "#000000")
+bg_color = '#FFFFFF'  # Color del fondo del lienzo (puedes cambiarlo directamente aquí)
 
-# Crear el lienzo
+# Tamaño del lienzo aumentado
 canvas_result = st_canvas(
-    fill_color="rgba(255, 165, 0, 0.3)",  # Color de relleno con opacidad
+    fill_color="rgba(255, 165, 0, 0.3)",  # Color de relleno fijo con opacidad
     stroke_width=stroke_width,
     stroke_color=stroke_color,
     background_color=bg_color,
-    height=300,
-    width=400,
+    height=600,  # Altura aumentada
+    width=800,   # Ancho aumentado
     drawing_mode=drawing_mode,
     key="canvas",
 )
 
+# Ingreso de clave API
 ke = st.text_input('Ingresa tu Clave')
 os.environ['OPENAI_API_KEY'] = ke
 
@@ -48,13 +49,14 @@ os.environ['OPENAI_API_KEY'] = ke
 api_key = os.environ['OPENAI_API_KEY']
 
 # Inicializar el cliente OpenAI con la clave API
-client = OpenAI(api_key=api_key)
+if api_key:
+    client = OpenAI(api_key=api_key)
 
-analyze_button = st.button("Analiza el dibujo", type="secondary")
+# Botón para analizar
+analyze_button = st.button("Analiza la imagen", type="secondary")
 
 # Verificar si se dibujó algo y si la API Key es válida
 if canvas_result.image_data is not None and api_key and analyze_button:
-
     with st.spinner("Analizando ..."):
         # Codificar la imagen
         input_numpy_array = np.array(canvas_result.image_data)
@@ -64,7 +66,7 @@ if canvas_result.image_data is not None and api_key and analyze_button:
         # Codificar la imagen en base64
         base64_image = encode_image_to_base64("img.png")
             
-        prompt_text = (f"Describe en español brevemente la imagen")
+        prompt_text = "Describe en español brevemente la imagen"
     
         # Realizar la solicitud a la API
         try:
@@ -96,6 +98,5 @@ if canvas_result.image_data is not None and api_key and analyze_button:
         except Exception as e:
             st.error(f"Ocurrió un error: {e}")
 else:
-    # Mensajes de advertencia
     if not api_key:
         st.warning("Por favor ingresa tu API key.")
