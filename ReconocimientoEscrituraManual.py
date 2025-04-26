@@ -15,35 +15,28 @@ def encode_image_to_base64(image_path):
     except FileNotFoundError:
         return "Error: La imagen no se encontró en la ruta especificada."
 
-# Configuración de la página
+# Streamlit 
 st.set_page_config(page_title='Tablero Inteligente')
 st.title('Tablero Inteligente')
 with st.sidebar:
     st.subheader("Acerca de:")
     st.subheader("En esta aplicación veremos la capacidad que ahora tiene una máquina de interpretar un boceto")
-    bg_image = st.file_uploader("Carga una Imagen de Fondo:", type=["png", "jpg", "jpeg"])
-
 st.subheader("Dibuja el boceto en el panel y presiona el botón para analizarla")
 
-# Configuración del lienzo
+# Parámetros para el lienzo
 drawing_mode = "freedraw"
 stroke_width = st.sidebar.slider('Selecciona el ancho de línea', 1, 30, 5)
 stroke_color = st.sidebar.color_picker("Selecciona el color del trazo", "#000000")
 bg_color = '#FFFFFF'
 
-background_image = None
-if bg_image is not None:
-    background_image = Image.open(bg_image)
-
-# Crear el componente del lienzo
+# Crear el lienzo
 canvas_result = st_canvas(
-    fill_color="rgba(255, 165, 0, 0.3)",  # Color de relleno fijo con algo de opacidad
+    fill_color="rgba(255, 165, 0, 0.3)",  # Color de relleno con opacidad
     stroke_width=stroke_width,
     stroke_color=stroke_color,
     background_color=bg_color,
     height=300,
     width=400,
-    background_image=background_image if bg_image else None,
     drawing_mode=drawing_mode,
     key="canvas",
 )
@@ -51,15 +44,15 @@ canvas_result = st_canvas(
 ke = st.text_input('Ingresa tu Clave')
 os.environ['OPENAI_API_KEY'] = ke
 
-# Recuperar la clave API de OpenAI
+# Recuperar la clave API
 api_key = os.environ['OPENAI_API_KEY']
 
-# Inicializar el cliente de OpenAI con la clave API
+# Inicializar el cliente OpenAI con la clave API
 client = OpenAI(api_key=api_key)
 
 analyze_button = st.button("Analiza la imagen", type="secondary")
 
-# Verificar si se ha dibujado algo en el lienzo, si está disponible la clave API, y si se ha presionado el botón
+# Verificar si se dibujó algo y si la API Key es válida
 if canvas_result.image_data is not None and api_key and analyze_button:
 
     with st.spinner("Analizando ..."):
@@ -103,6 +96,6 @@ if canvas_result.image_data is not None and api_key and analyze_button:
         except Exception as e:
             st.error(f"Ocurrió un error: {e}")
 else:
-    # Avisos para acción requerida
+    # Mensajes de advertencia
     if not api_key:
         st.warning("Por favor ingresa tu API key.")
