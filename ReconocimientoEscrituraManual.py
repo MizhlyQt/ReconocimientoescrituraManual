@@ -44,7 +44,7 @@ page_bg_color = """
 
 /* Fondo del sidebar */
 [data-testid="stSidebar"] {
-    background-image: url("https://static.vecteezy.com/system/resources/previews/000/516/877/non_2x/vector-geometric-snake-skin-pattern-texture-black-background.jpg");
+    background-image: url("https://img.freepik.com/free-vector/simple-pattern-background_1319-147.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -61,7 +61,7 @@ canvas_result = st_canvas(
     stroke_color=stroke_color,
     background_color=bg_color,
     height=300,
-    width=400,
+    width=700,
     drawing_mode=drawing_mode,  # El modo seleccionado por el usuario
     key="canvas",
 )
