@@ -48,6 +48,10 @@ page_bg_color = """
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+[data-testid="stMarkdownContainer"] {
+    color: #0e0f15;
+}
 </style>
 """
 
