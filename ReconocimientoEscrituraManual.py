@@ -35,6 +35,25 @@ st.subheader("Dibuja en el lienzo y presiona el botón para analizarla")
 # Parámetros para el lienzo
 bg_color = '#FFFFFF'
 
+page_bg_color = """
+<style>
+/* Fondo principal */
+[data-testid="stAppViewContainer"] {
+    background-color: #d3f8e3; /* Cambia el color de la página principal */
+}
+
+/* Fondo del sidebar */
+[data-testid="stSidebar"] {
+    background-image: url("https://static.vecteezy.com/system/resources/previews/000/516/877/non_2x/vector-geometric-snake-skin-pattern-texture-black-background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+</style>
+"""
+
+st.markdown(page_bg_color, unsafe_allow_html=True)
+
+
 # Crear el lienzo
 canvas_result = st_canvas(
     fill_color=fill_color,  # Color de relleno personalizable
